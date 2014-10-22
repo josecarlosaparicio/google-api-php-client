@@ -71,11 +71,6 @@ if($idvideo != null && $rating != null && $is_auth){
 	$token = $_SESSION['youtube_data'];
 	$client->setAccessToken($token);
 
-	//DEBUG
-	echo 'ID VIDEO: ' .$idvideo .'<br />';
-	echo 'RATING: ' .$rating .'<br /><br />';
-	//END DEBUG
-
 	$youtube = new Google_Service_YouTube($client);
 	$result = $youtube->videos->rate($idvideo,$rating);
 
