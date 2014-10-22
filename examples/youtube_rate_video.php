@@ -8,8 +8,9 @@
 //  FILE: youtube_rate_video.php  ////////////////////////////
 //////////////////////////////////////////////////////////////	
 
-require_once 'google-api-php-client/src/Google/Client.php';
-require_once 'google-api-php-client/src/Google/Service/YouTube.php';
+//require_once 'google-api-php-client/src/Google/Client.php';
+//require_once 'google-api-php-client/src/Google/Service/YouTube.php';
+require_once realpath(dirname(__FILE__) . '/../autoload.php');
 
 // API GOOGLE CLIENT PARAMS
 $client_id	= 'SET_CLIENT_ID_GOOGLE_API';
