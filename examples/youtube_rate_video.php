@@ -30,14 +30,12 @@ if(isset($_POST["idvideo"])) $idvideo = $_POST["idvideo"];
 if(isset($_POST["rating"])) $rating = $_POST["rating"];
 if(isset($_GET["code"])) $code = $_GET["code"];
 
-
 $client = new Google_Client();
 $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setScopes("https://www.googleapis.com/auth/youtube"); 
 
-	
 if(isset($_SESSION['youtube_data']) && !empty($_SESSION['youtube_data'])) $is_auth = true;	
 if($is_auth){
 
@@ -65,7 +63,6 @@ if($is_auth){
 		echo "<a href='$authUrl'>Sign in with Google </a>";		
 	}
 }
-
 
 if($idvideo != null && $rating != null && $is_auth){
 
