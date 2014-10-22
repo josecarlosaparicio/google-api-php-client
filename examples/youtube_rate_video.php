@@ -12,16 +12,16 @@
 	require_once 'google-api-php-client/src/Google/Service/YouTube.php';
 
 	// API GOOGLE CLIENT PARAMS
-	$client_id		= 	'SET_CLIENT_ID_GOOGLE_API';
-	$client_secret	= 	'SET_CLIENT_SECRET_GOOGLE_API';
-	$redirect_uri	= 	'SET_REDIRECT_URI_GOOGLE_API'; // url/path/to/file/rating_video.php
+	$client_id	= 'SET_CLIENT_ID_GOOGLE_API';
+	$client_secret	= 'SET_CLIENT_SECRET_GOOGLE_API';
+	$redirect_uri	= 'SET_REDIRECT_URI_GOOGLE_API'; // url/path/to/file/rating_video.php
 	// ID VIDEO FOR RATING
-	$id_video		= 	'ZE8ODPL2VPI';
-	$rating 		=	'like'; // Acceptable values: dislike, like, none
+	$id_video	= 'ZE8ODPL2VPI';
+	$rating 	= 'like'; // Acceptable values: dislike, like, none
 
 	// LOCAL SCRIPT PARAMS
-	$key 		= 	'7R6H8364HS';
-	$is_auth 	= 	false;
+	$key 		= '7R6H8364HS';
+	$is_auth 	= false;
 	
 	$client = new Google_Client();
 	$client->setClientId($client_id);
@@ -41,13 +41,13 @@
 		$token_encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $token, MCRYPT_MODE_CBC, md5(md5($key))));
 
 		echo '
-			<form action="call_api.php" method="POST">
-				<input type="hidden" name="vr" value="'. $clientapi_data_encrypted; .'" />
-				<input type="hidden" name="vrt" value="'. $token_encrypted; .'" />
-				<input type="hidden" name="rating" value="'.$rating.'" /> 
-				<input type="hidden" name="idvideo" value="'.$id_video.'" />
-				<button type="submit">I like the video with id: '.$id_video.'</button>
-			</form>';				
+		<form action="call_api.php" method="POST">
+			<input type="hidden" name="vr" value="'. $clientapi_data_encrypted; .'" />
+			<input type="hidden" name="vrt" value="'. $token_encrypted; .'" />
+			<input type="hidden" name="rating" value="'.$rating.'" /> 
+			<input type="hidden" name="idvideo" value="'.$id_video.'" />
+			<button type="submit">I like the video with id: '.$id_video.'</button>
+		</form>';				
 
 	}else{	
 		
