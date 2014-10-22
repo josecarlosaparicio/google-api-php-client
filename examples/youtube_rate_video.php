@@ -18,7 +18,6 @@
 	// ID VIDEO FOR RATING
 	$id_video	= 'ZE8ODPL2VPI';
 	$rating 	= 'like'; // Acceptable values: dislike, like, none
-
 	// LOCAL SCRIPT PARAMS
 	$key 		= '7R6H8364HS';
 	$is_auth 	= false;
