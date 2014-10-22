@@ -41,13 +41,22 @@ if($is_auth){
 
 	$token = $_SESSION['youtube_data'];
 	$client->setAccessToken($token);
+	
+	if($idvideo != null && $rating != null){
 
-	echo '
-	<form action="rating_video.php" method="POST">
-		<input type="hidden" name="rating" value="'.$rating.'" /> 
-		<input type="hidden" name="idvideo" value="'.$id_video.'" />
-		<button type="submit">I like the video with id: '.$id_video.'</button>
-	</form>';				
+		$youtube = new Google_Service_YouTube($client);
+		$result = $youtube->videos->rate($idvideo,$rating);
+	
+		echo $result;
+		
+	}else{
+		echo '
+		<form action="rating_video.php" method="POST">
+			<input type="hidden" name="rating" value="'.$rating.'" /> 
+			<input type="hidden" name="idvideo" value="'.$id_video.'" />
+			<button type="submit">I like the video with id: '.$id_video.'</button>
+		</form>';
+	}
 
 }else{	
 		
@@ -62,14 +71,6 @@ if($is_auth){
 		$authUrl = $client->createAuthUrl();			
 		echo "<a href='$authUrl'>Sign in with Google </a>";		
 	}
-}
-
-if($idvideo != null && $rating != null && $is_auth){
-
-	$youtube = new Google_Service_YouTube($client);
-	$result = $youtube->videos->rate($idvideo,$rating);
-
-	echo $result;	
 }
 
 ?>
