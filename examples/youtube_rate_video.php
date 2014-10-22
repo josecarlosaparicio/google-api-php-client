@@ -21,7 +21,16 @@ $rating 	= 'like'; // Acceptable values: dislike, like, none
 // LOCAL SCRIPT PARAMS
 $key 		= '7R6H8364HS';
 $is_auth 	= false;
-	
+// REQUEST (POST|GET) PARAMS
+$idvideo 	= null; 
+$rating 	= null;
+$code		= null;
+
+if(isset($_POST["idvideo"])) $idvideo = $_POST["idvideo"];
+if(isset($_POST["rating"])) $rating = $_POST["rating"];
+if(isset($_GET["code"])) $code = $_GET["code"];
+
+
 $client = new Google_Client();
 $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
@@ -34,8 +43,6 @@ if($is_auth){
 
 	$token = $_SESSION['youtube_data'];
 	$client->setAccessToken($token);
-		
-	$token_encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $token, MCRYPT_MODE_CBC, md5(md5($key))));
 
 	echo '
 	<form action="rating_video.php" method="POST">
@@ -46,11 +53,10 @@ if($is_auth){
 
 }else{	
 		
-	if(isset($_GET["code"])){		
+	if($code != null){		
 
-		$client->authenticate($_GET["code"]);
-		$token = $client->getAccessToken();
-		$_SESSION['youtube_data'] = $token;
+		$client->authenticate($code);
+		$_SESSION['youtube_data'] = $client->getAccessToken();
 		$redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 		header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
 
@@ -61,15 +67,7 @@ if($is_auth){
 }
 
 
-$idvideo = null; $rating = null;
-	
-if(isset($_POST["idvideo"])) $idvideo = $_POST["idvideo"];
-if(isset($_POST["rating"])) $rating = $_POST["rating"];
-	
 if($idvideo != null && $rating != null && $is_auth){
-
-	$token = $_SESSION['youtube_data'];
-	$client->setAccessToken($token);
 
 	$youtube = new Google_Service_YouTube($client);
 	$result = $youtube->videos->rate($idvideo,$rating);
